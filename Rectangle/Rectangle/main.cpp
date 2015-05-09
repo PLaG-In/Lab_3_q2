@@ -6,22 +6,24 @@
 
 using namespace std;
 
-void WorkWithRect(CRectangle &tempRect, const string &action, ifstream &fin)
+void RectangleActions(CRectangle &rect, ifstream &fin)
 {
+	string action;
+	fin >> action;
 	if (action == "Rectangle")
 	{
 		int width, height, left, top;
 		fin >> left >> top >> width >> height;
-		tempRect.SetLeft(left);
-		tempRect.SetTop(top);
-		tempRect.SetWidth(width);
-		tempRect.SetHeight(height);
+		rect.SetLeft(left);
+		rect.SetTop(top);
+		rect.SetWidth(width);
+		rect.SetHeight(height);
 	}
 	else if (action == "Move")
 	{
 		int dx, dy;
 		fin >> dx >> dy;
-		tempRect.Move(dx, dy);
+		rect.Move(dx, dy);
 	}
 	else
 	{
@@ -29,7 +31,7 @@ void WorkWithRect(CRectangle &tempRect, const string &action, ifstream &fin)
 		{
 			int sx, sy;
 			fin >> sx >> sy;
-			tempRect.Scale(sx, sy);
+			rect.Scale(sx, sy);
 		}
 		else
 		{
@@ -55,14 +57,13 @@ bool ReadFile(const char *fileName, vector<CRectangle> &rectangles)
 	{
 		return false;
 	}
-	CRectangle tempRect = CRectangle();
+	CRectangle rect;
 	string str;
 	while (fin.good())
 	{
-		fin >> str;
-		WorkWithRect(tempRect, str, fin);
+		RectangleActions(rect, fin);
 	}
-	rectangles.push_back(tempRect);
+	rectangles.push_back(rect);
 	fin.close();
 	return true;
 }

@@ -6,6 +6,17 @@ struct RectangleFixture
 	CRectangle rect;
 };
 
+bool RectanglesAreEqual(CRectangle const& rect1, CRectangle const& rect2)
+{	
+	if (rect1.GetLeft() == rect2.GetLeft()
+		&& rect1.GetTop() == rect2.GetTop()
+		&& rect1.GetWidth() == rect2.GetWidth()
+		&& rect1.GetHeight() == rect2.GetHeight())
+	{
+		return true;
+	}
+	return false;
+}
 BOOST_FIXTURE_TEST_SUITE(Rectangle, RectangleFixture)
 
 BOOST_AUTO_TEST_CASE(RectangleTrueInitiation)
@@ -53,20 +64,11 @@ BOOST_AUTO_TEST_CASE(RectangleHasPerimeter)
 
 BOOST_AUTO_TEST_CASE(RectangleHasArea)
 {
-	rect.SetLeft(2);
-	rect.SetTop(2);
-	rect.SetRight(4);
-	rect.SetBottom(5);
-	BOOST_CHECK(rect.GetWidth() == 2);
-	BOOST_CHECK(rect.GetHeight() == 3);
-	BOOST_CHECK(rect.GetLeft() == 2);
-	BOOST_CHECK(rect.GetTop() == 2);
-	BOOST_CHECK(rect.GetRight() == 4);
-	BOOST_CHECK(rect.GetBottom() == 5);
-	BOOST_CHECK(rect.GetArea() == 6);
+	rect = CRectangle(2, 2, 3, 4);
+	BOOST_CHECK(rect.GetArea() == 12);
 
 	rect.SetWidth(7);
-	BOOST_CHECK(rect.GetArea() == 21);
+	BOOST_CHECK(rect.GetArea() == 28);
 
 	rect.SetHeight(10);
 	BOOST_CHECK(rect.GetArea() == 70);
@@ -76,24 +78,17 @@ BOOST_AUTO_TEST_CASE(RectangleHasArea)
 BOOST_AUTO_TEST_CASE(RectangleMove)
 {
 	rect = CRectangle(1, 1, 3, 4);
-
+	CRectangle testRect(2, 2, 4, 5);
 	rect.Move(1, 1);
-	BOOST_CHECK(rect.GetLeft() == 2);
-	BOOST_CHECK(rect.GetTop() == 2);
-	BOOST_CHECK(rect.GetRight() == 5);
-	BOOST_CHECK(rect.GetBottom() == 6);
+	RectanglesAreEqual(rect, testRect);
 
 	rect.Move(-1, -1);
-	BOOST_CHECK(rect.GetLeft() == 1);
-	BOOST_CHECK(rect.GetTop() == 1);
-	BOOST_CHECK(rect.GetRight() == 4);
-	BOOST_CHECK(rect.GetBottom() == 5);
+	testRect = CRectangle(1, 1, 3, 4);
+	RectanglesAreEqual(rect, testRect);
 
-	rect.Move(2, -1);	
-	BOOST_CHECK(rect.GetLeft() == 3);
-	BOOST_CHECK(rect.GetTop() == 0);
-	BOOST_CHECK(rect.GetRight() == 6);
-	BOOST_CHECK(rect.GetBottom() == 4);
+	rect.Move(2, -1);
+	testRect = CRectangle(3, 0, 5, 3);
+	RectanglesAreEqual(rect, testRect);
 }
 
 BOOST_AUTO_TEST_CASE(RectangleScale)
