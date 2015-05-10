@@ -50,7 +50,7 @@ void PrintRectangleParameters(const CRectangle &rect)
 	cout << "	Perimeter: " << rect.GetPerimeter() << endl;
 }
 
-bool ReadFile(const char *fileName, vector<CRectangle> &rectangles)
+bool ReadFileAndFillVector(const char *fileName, vector<CRectangle> &rectangles)
 {
 	ifstream fin(fileName);
 	if (!fin)
@@ -77,13 +77,13 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 	vector<CRectangle> rectangles;
-	if (!ReadFile(argv[1], rectangles))
+	if (!ReadFileAndFillVector(argv[1], rectangles))
 	{
 		cout << "File doesn't exist: " << argv[1] << endl;
 		return 1;
 	}
 
-	if (!ReadFile(argv[2], rectangles))
+	if (!ReadFileAndFillVector(argv[2], rectangles))
 	{
 		cout << "File doesn't exist: " << argv[2] << endl;
 		return 1;

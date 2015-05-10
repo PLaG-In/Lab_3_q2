@@ -19,6 +19,53 @@ bool RectanglesAreEqual(CRectangle const& rect1, CRectangle const& rect2)
 }
 BOOST_FIXTURE_TEST_SUITE(Rectangle, RectangleFixture)
 
+BOOST_AUTO_TEST_CASE(RectangleDefineParameters)
+{
+	{
+		CRectangle rec(18, 10, 94, 10);
+		BOOST_CHECK_EQUAL(rec.GetLeft(), 18);
+		BOOST_CHECK_EQUAL(rec.GetTop(), 10);
+		BOOST_CHECK_EQUAL(rec.GetRight(), 112);
+		BOOST_CHECK_EQUAL(rec.GetBottom(), 20);
+		BOOST_CHECK_EQUAL(rec.GetWidth(), 94);
+		BOOST_CHECK_EQUAL(rec.GetHeight(), 10);
+	}
+	{
+		CRectangle rec(9, 5, -45, 6);
+		BOOST_CHECK_EQUAL(rec.GetLeft(), 9);
+		BOOST_CHECK_EQUAL(rec.GetTop(), 5);
+		BOOST_CHECK_EQUAL(rec.GetRight(), 9);
+		BOOST_CHECK_EQUAL(rec.GetBottom(), 11);
+		BOOST_CHECK_EQUAL(rec.GetWidth(), 0);
+		BOOST_CHECK_EQUAL(rec.GetHeight(), 6);
+	}
+	{
+		CRectangle rec(26, 4, 86, -4);
+		BOOST_CHECK_EQUAL(rec.GetLeft(), 26);
+		BOOST_CHECK_EQUAL(rec.GetTop(), 4);
+		BOOST_CHECK_EQUAL(rec.GetRight(), 112);
+		BOOST_CHECK_EQUAL(rec.GetBottom(), 4);
+		BOOST_CHECK_EQUAL(rec.GetWidth(), 86);
+		BOOST_CHECK_EQUAL(rec.GetHeight(), 0);
+	}
+}
+
+BOOST_AUTO_TEST_CASE(NegativeSizes)
+{
+	CRectangle rect(20, -5, -30, -10);
+	BOOST_CHECK_EQUAL(rect.GetWidth(), 0);
+	BOOST_CHECK_EQUAL(rect.GetHeight(), 0);
+
+	rect.SetWidth(1);
+	rect.SetHeight(1);
+
+	rect.SetWidth(-5);
+	BOOST_CHECK_EQUAL(rect.GetWidth(), 0);
+
+	rect.SetHeight(-60);
+	BOOST_CHECK_EQUAL(rect.GetHeight(), 0);
+}
+
 BOOST_AUTO_TEST_CASE(RectangleTrueInitiation)
 {
 	rect.SetWidth(6);
@@ -41,16 +88,7 @@ BOOST_AUTO_TEST_CASE(RectangleWithNegativeSides)
 
 BOOST_AUTO_TEST_CASE(RectangleHasPerimeter)
 {
-	rect.SetTop(1);
-	rect.SetLeft(1);
-	rect.SetRight(8);
-	rect.SetBottom(4);
-	BOOST_CHECK(rect.GetWidth() == 7);
-	BOOST_CHECK(rect.GetHeight() == 3);
-	BOOST_CHECK(rect.GetLeft() == 1);
-	BOOST_CHECK(rect.GetTop() == 1);
-	BOOST_CHECK(rect.GetRight() == 8);
-	BOOST_CHECK(rect.GetBottom() == 4);
+	rect = CRectangle(1, 1, 7, 3);;
 	BOOST_CHECK(rect.GetPerimeter() == 20);
 	{
 		rect.SetWidth(9);
