@@ -22,31 +22,31 @@ BOOST_FIXTURE_TEST_SUITE(Rectangle, RectangleFixture)
 BOOST_AUTO_TEST_CASE(RectangleDefineParameters)
 {
 	{
-		CRectangle rec(18, 10, 94, 10);
-		BOOST_CHECK_EQUAL(rec.GetLeft(), 18);
-		BOOST_CHECK_EQUAL(rec.GetTop(), 10);
-		BOOST_CHECK_EQUAL(rec.GetRight(), 112);
-		BOOST_CHECK_EQUAL(rec.GetBottom(), 20);
-		BOOST_CHECK_EQUAL(rec.GetWidth(), 94);
-		BOOST_CHECK_EQUAL(rec.GetHeight(), 10);
+		CRectangle rect(18, 10, 94, 10);
+		BOOST_CHECK_EQUAL(rect.GetLeft(), 18);
+		BOOST_CHECK_EQUAL(rect.GetTop(), 10);
+		BOOST_CHECK_EQUAL(rect.GetRight(), 112);
+		BOOST_CHECK_EQUAL(rect.GetBottom(), 20);
+		BOOST_CHECK_EQUAL(rect.GetWidth(), 94);
+		BOOST_CHECK_EQUAL(rect.GetHeight(), 10);
 	}
 	{
-		CRectangle rec(9, 5, -45, 6);
-		BOOST_CHECK_EQUAL(rec.GetLeft(), 9);
-		BOOST_CHECK_EQUAL(rec.GetTop(), 5);
-		BOOST_CHECK_EQUAL(rec.GetRight(), 9);
-		BOOST_CHECK_EQUAL(rec.GetBottom(), 11);
-		BOOST_CHECK_EQUAL(rec.GetWidth(), 0);
-		BOOST_CHECK_EQUAL(rec.GetHeight(), 6);
+		CRectangle rect(9, 5, -45, 6);
+		BOOST_CHECK_EQUAL(rect.GetLeft(), 9);
+		BOOST_CHECK_EQUAL(rect.GetTop(), 5);
+		BOOST_CHECK_EQUAL(rect.GetRight(), 9);
+		BOOST_CHECK_EQUAL(rect.GetBottom(), 11);
+		BOOST_CHECK_EQUAL(rect.GetWidth(), 0);
+		BOOST_CHECK_EQUAL(rect.GetHeight(), 6);
 	}
 	{
-		CRectangle rec(26, 4, 86, -4);
-		BOOST_CHECK_EQUAL(rec.GetLeft(), 26);
-		BOOST_CHECK_EQUAL(rec.GetTop(), 4);
-		BOOST_CHECK_EQUAL(rec.GetRight(), 112);
-		BOOST_CHECK_EQUAL(rec.GetBottom(), 4);
-		BOOST_CHECK_EQUAL(rec.GetWidth(), 86);
-		BOOST_CHECK_EQUAL(rec.GetHeight(), 0);
+		CRectangle rect(26, 4, 86, -4);
+		BOOST_CHECK_EQUAL(rect.GetLeft(), 26);
+		BOOST_CHECK_EQUAL(rect.GetTop(), 4);
+		BOOST_CHECK_EQUAL(rect.GetRight(), 112);
+		BOOST_CHECK_EQUAL(rect.GetBottom(), 4);
+		BOOST_CHECK_EQUAL(rect.GetWidth(), 86);
+		BOOST_CHECK_EQUAL(rect.GetHeight(), 0);
 	}
 }
 
