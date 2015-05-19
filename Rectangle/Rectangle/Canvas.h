@@ -12,5 +12,8 @@ public:
 	char GetPixel(int x, int y) const;
 	void Write(std::ostream & ostream) const;
 private:
-
+	bool IsValidCoord(int x, int y) const;
+	char **m_canvas;
+	unsigned m_width;
+	unsigned m_height;
 };
