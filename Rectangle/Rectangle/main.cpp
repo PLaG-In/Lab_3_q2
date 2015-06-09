@@ -1,8 +1,6 @@
-// main.cpp : Defines the enttempRectry point for the console application.
-//
-
 #include "stdafx.h"
 #include "Rectangle.h"
+#include "Canvas.h"
 
 using namespace std;
 
@@ -68,13 +66,34 @@ bool ReadFileAndFillVector(const char *fileName, vector<CRectangle> &rectangles)
 	return true;
 }
 
+void FillRectangle(const CRectangle &rect, char code, CCanvas &canvas)
+{
+	unsigned x = rect.GetLeft();
+	unsigned y = rect.GetTop();
+	for (size_t i = 0; i < rect.GetWidth(); ++i)
+	{
+		for (size_t j = 0; j < rect.GetHeight(); ++j)
+		{
+			canvas.SetPixel(i + x, j + y, code);
+		}
+	}
+}
+
+void PrintCanvasWithRect(const vector<CRectangle> &rectangles, CCanvas &canvas, std::ostream &ostream)
+{
+	FillRectangle(rectangles[0], '+', canvas);
+	FillRectangle(rectangles[1], '-', canvas);
+	FillRectangle(rectangles[2], '#', canvas);
+	canvas.Write(ostream);
+}
+
+
 
 int main(int argc, char* argv[])
 {
 	if (argc < 3)
 	{
 		cout << "Usage: lab3 [file1] [file2] \n";
-		return 1;
 	}
 	vector<CRectangle> rectangles;
 	if (!ReadFileAndFillVector(argv[1], rectangles))
@@ -89,16 +108,26 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-	for (size_t i = 0; i < rectangles.size(); i++)
+	for (size_t i = 0; i < 2; i++)
 	{
 		cout << "Rectangle " << i + 1 << ":\n";
 		PrintRectangleParameters(rectangles[i]);
 	}
 
 	CRectangle intersectRect = rectangles[0];
-	intersectRect.Intersect(rectangles[1]);
+	rectangles[2].Intersect(rectangles[1]);
 	cout << "Intersection rectangle:\n";
-	PrintRectangleParameters(intersectRect);
-	system("pause");
+	PrintRectangleParameters(rectangles[2]);
+	CCanvas canvas(60, 20);
+	if (argc > 3)
+	{
+		ofstream ofStrm(argv[3]);
+		PrintCanvasWithRect(rectangles, canvas, ofStrm);
+	}
+	else
+	{
+		PrintCanvasWithRect(rectangles, canvas, cout);
+	}
+
 	return 0;
 }

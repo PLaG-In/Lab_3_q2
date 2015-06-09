@@ -1,9 +1,10 @@
 #pragma once
+
 class CCanvas
 {
 public:
 	CCanvas(unsigned width, unsigned height);
-	~CCanvas();
+
 	unsigned GetWidth() const;
 	unsigned GetHeight() const;
 
@@ -11,6 +12,7 @@ public:
 	void SetPixel(int x, int y, char code);
 	char GetPixel(int x, int y) const;
 	void Write(std::ostream & ostream) const;
+	~CCanvas();
 private:
 	bool IsValidCoord(int x, int y) const;
 	char **m_canvas;
